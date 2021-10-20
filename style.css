@@ -14,6 +14,19 @@ button {
     font-size: x-large;
     border-radius: 5px;
     border-color: black;
+    background-color: hsl(214, 100%, 78%);
+}
+
+button:hover {
+    background-color: hsl(214, 100%, 57%);
+}
+
+.number-button {
+    background-color: hsl(32, 100%, 69%);
+}
+
+.number-button:hover {
+    background-color: hsl(32, 100%, 49%);
 }
 
 #calculator {
@@ -25,9 +38,10 @@ button {
     max-width: 500px;
     min-height: 600px;
     max-height: 600px;
-    background-color: gray;
+    background-color: black;
     border: 2px solid black;
     gap: 8px;
+    margin-top: 80px;
     padding: 15px;
     border-radius: 2%;
 }
@@ -39,7 +53,7 @@ button {
     align-items: flex-end;
     font-size: 90px;
     font-family: 'Roboto', sans-serif;
-    background-color: white;
+    background-color: whitesmoke;
     border: 2px solid black;
     border-radius: 5px;
     padding-left: 10px;
