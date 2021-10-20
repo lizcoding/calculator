@@ -1,13 +1,15 @@
 /*
 --- TO-DO ---
-1. Enable plus-minus sign toggle button.
-2. Convert results that would be greater than 9 places to scientific notation.
-3. Make it so no numbers can be added to a scientific notation result.
-4. Split display to show current number and previous/current function.
-5. Update clear for split display: clearing once will clear current number, twice
+1. Enable delete after result of operation.
+2. Enable plus-minus sign toggle button.
+3. Convert results that would be greater than 9 places to scientific notation.
+4. Make it so no numbers can be added to a scientific notation result.
+5. Split display to show current number and previous/current function.
+6. Update clear for split display: clearing once will clear current number, twice
     to clear mini display.
-6. Enable keyboard support.
-7. Disable buttons in case of ERROR. 
+7. Enable keyboard support.
+8. Disable buttons in case of ERROR. 
+
 */
 
 const divideButton = document.getElementById('divide');
@@ -50,6 +52,7 @@ function addNumberListeners() {
             } else if (num2 == null ) {
                 if (button.innerText != '.') {
                     num2 = button.innerText;
+                    inputDisplay.innerText = ''
                     inputDisplay.insertAdjacentText('beforeend', button.innerText);
                 }
             } 
@@ -76,6 +79,7 @@ function addOperatorListeners() {
             if (num1 != null && num2 != null && operator != null) {
                 operate(operator);
                 decimalButton.disabled = false;
+                operator = button.innerText;
             }
         });
     }    
@@ -148,7 +152,6 @@ function operate(operator) {
     num1 = result;
     num2 = null;
     operator = null;
-    return result;
 }
 
 function add(num1, num2) {
