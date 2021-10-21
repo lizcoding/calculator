@@ -1,15 +1,15 @@
 /*
 --- TO-DO ---
-1. Enable delete after result of operation.
-2. Enable plus-minus sign toggle button.
-3. Convert results that would be greater than 9 places to scientific notation.
-4. Make it so no numbers can be added to a scientific notation result.
-5. Split display to show current number and previous/current function.
-6. Update clear for split display: clearing once will clear current number, twice
-    to clear mini display.
-7. Enable keyboard support.
-8. Disable buttons in case of ERROR. 
+# Enable plus-minus sign toggle button.
+1. Enable keyboard support.
+2. Disable buttons in case of ERROR. 
 
+--- EXTRA CREDIT ---
+1. Convert results that would be greater than 9 places to scientific notation.
+2. Make it so no numbers can be added to a scientific notation result.
+3. Split display to show current number and previous/current function.
+4. Update clear for split display: clearing once will clear current number, twice
+    to clear mini display.
 */
 
 const divideButton = document.getElementById('divide');
@@ -75,6 +75,7 @@ function addOperatorListeners() {
                 operator = button.innerText;
                 inputDisplay.innerText = '';
                 decimalButton.disabled = false;
+                toggleSignButton.className = 'inactive'
             }
             if (num1 != null && num2 != null && operator != null) {
                 operate(operator);
@@ -101,6 +102,7 @@ function addClearListener() {
         num2 = null;
         operator = null;
         inputDisplay.innerText = '';
+        toggleSignButton.className = 'inactive'
     });
 }
 
@@ -112,6 +114,7 @@ function addDeleteListener() {
                 inputDisplay.innerText = num1;
             } else {
                 num1 = null;
+                toggleSignButton.className = 'inactive'
                 inputDisplay.innerText = '';
             }
         } else if (num2 != null) {
@@ -120,12 +123,38 @@ function addDeleteListener() {
                 inputDisplay.innerText = num2;
             } else {
                 num2 = null;
+                toggleSignButton.className = 'inactive'
                 inputDisplay.innerText = '';
             }
         }
     });
 }
 
+function addToggleSignListener() {
+    toggleSignButton.addEventListener('click', function() {
+        if (toggleSignButton.className == 'inactive') {
+            if (num1 != null && num1.length < 9 && operator == null) {
+                num1 = '-' + num1;
+                inputDisplay.innerText = num1;
+                toggleSignButton.className = 'active'
+            } else if (num1 != null && operator != null && num2 != null && num2.length < 9) {
+                num2 = '-' + num2;
+                inputDisplay.innerText = num2;
+                toggleSignButton.className = 'active'
+            }
+        } else if (toggleSignButton.className == 'active') {
+            if (num1 != null && num1.length > 1 && operator == null) {
+                num1 = num1.slice(1)
+                inputDisplay.innerText = num1;
+                toggleSignButton.className = 'inactive'
+            } else if (num1 != null && operator != null && num2 != null && num2.length > 1) {
+                num2 = num2.slice(1)
+                inputDisplay.innerText = num2;
+                toggleSignButton.className = 'inactive'
+            }
+        }
+    });
+}
 function operate(operator) {
     num1 = Number(num1);
     num2 = Number(num2);
@@ -143,6 +172,11 @@ function operate(operator) {
         result = divide(num1, num2);       
     }
 
+    if (result >= 0) {
+        toggleSignButton.className = 'inactive'
+    } else {
+        toggleSignButton.className = 'active'
+    }
     result = result.toString();
     if (result.length > 9) {
         result = result.slice(0, 9)
@@ -180,4 +214,5 @@ addNumberListeners();
 addOperatorListeners();
 addClearListener();
 addDeleteListener();
+addToggleSignListener();
 addEqualsListener();
