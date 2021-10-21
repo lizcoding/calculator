@@ -63,3 +63,10 @@ button:hover {
 #zero {
     grid-column: span 2;
 }
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+}
